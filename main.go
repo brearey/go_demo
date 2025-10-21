@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	userHeight := 1.73 // meters
-	var userKg float64 = 75 // kg
+	userHeight := 1.73
+	userKg := 75.0
 	IMT := userKg / math.Pow(userHeight, 2)
 
 	fmt.Printf("IMT = %v\n", IMT)
