@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	// for i := 1; i < len(os.Args); i++ {
@@ -10,4 +12,5 @@ func main() {
 	for idx, value := range arr {
 		fmt.Printf("%d) %d\n", idx, value)
 	}
+	echo()
 }
