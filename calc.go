@@ -37,18 +37,15 @@ func calc() {
 	case ("*"):
 		result = float32(a * b)
 	case ("/"):
-		if (b == 0) {
+		if b == 0 {
 			err = errors.New("div by zero")
 			PrintError("Calc", err)
 			return
 		}
 		result = float32(a) / float32(b)
 	default:
-		err = errors.New("unknown operator")
-	}
-
-	if err != nil {
-		PrintError("Calc", err)
+		PrintError("Calc", errors.New("unknown operator"))
+		return
 	}
 
 	fmt.Printf("Result = %.2f\n", result)
