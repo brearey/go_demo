@@ -8,7 +8,7 @@ import (
 	"fmt"
 )
 
-func calc() {
+func Calc() {
 	var a, b int
 	var result float32
 	var operator string
@@ -29,24 +29,31 @@ func calc() {
 		return
 	}
 
-	switch operator {
-	case ("+"):
-		result = float32(a + b)
-	case ("-"):
-		result = float32(a - b)
-	case ("*"):
-		result = float32(a * b)
-	case ("/"):
-		if b == 0 {
-			err = errors.New("div by zero")
-			PrintError("Calc", err)
-			return
-		}
-		result = float32(a) / float32(b)
-	default:
-		PrintError("Calc", errors.New("unknown operator"))
+	result, err = calculate(float32(a), operator, float32(b))
+	if err != nil {
+		PrintError("Calc", err)
 		return
 	}
 
 	fmt.Printf("Result = %.2f\n", result)
+}
+
+func calculate(a float32, operator string, b float32) (float32, error) {
+	var result float32
+	switch operator {
+	case ("+"):
+		result = a + b
+	case ("-"):
+		result = a - b
+	case ("*"):
+		result = a * b
+	case ("/"):
+		if b == 0 {
+			return 0, errors.New("div by zero")
+		}
+		result = a / b
+	default:
+		return 0, errors.New("unknown operator")
+	}
+	return result, nil
 }
