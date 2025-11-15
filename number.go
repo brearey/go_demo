@@ -4,6 +4,6 @@ import (
 	"math/rand"
 )
 
-func getRandomNumber(max int) int {
+func GetRandomNumber(max int) int {
 	return rand.Intn(max)
 }
