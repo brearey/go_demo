@@ -9,5 +9,8 @@ test: clean
 build:
 	@go build -o $(BIN) *.go
 
+format:
+	@go fmt
+
 clean:
 	@rm -f $(BIN)
