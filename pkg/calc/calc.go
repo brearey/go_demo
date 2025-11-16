@@ -1,9 +1,8 @@
-// Задание 2: Простой калькулятор
-// *Напиши программу, которая принимает два числа и операцию (+, -, , /), затем выводит результат.
-
-package main
+package calc
 
 import (
+	"demo/app-1/pkg/input"
+	"demo/app-1/pkg/util"
 	"errors"
 	"fmt"
 )
@@ -13,25 +12,25 @@ func Calc() {
 	var result float32
 	var operator string
 	var err error
-	_, err = InputIntNumber(&a)
+	_, err = input.InputIntNumber(&a)
 	if err != nil {
-		PrintError("Calc", err)
+		util.PrintError("Calc", err)
 		return
 	}
-	_, err = InputOperator(&operator)
+	_, err = input.InputOperator(&operator)
 	if err != nil {
-		PrintError("Calc", err)
+		util.PrintError("Calc", err)
 		return
 	}
-	_, err = InputIntNumber(&b)
+	_, err = input.InputIntNumber(&b)
 	if err != nil {
-		PrintError("Calc", err)
+		util.PrintError("Calc", err)
 		return
 	}
 
 	result, err = calculate(float32(a), operator, float32(b))
 	if err != nil {
-		PrintError("Calc", err)
+		util.PrintError("Calc", err)
 		return
 	}
 

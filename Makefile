@@ -4,7 +4,7 @@ all: clean build
 	./$(BIN)
 
 test: clean build
-	go test -v
+	go test -v ./...
 
 build:
 	@go build -o $(BIN) *.go
