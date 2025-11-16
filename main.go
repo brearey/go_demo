@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	var password, err = Generate(10)
-	if (err != nil) {
+	if err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Println(password)

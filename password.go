@@ -6,7 +6,7 @@ import (
 )
 
 func Generate(passLength int) (string, error) {
-	if (passLength < 4) {
+	if passLength < 4 {
 		return "", errors.New("длина пароля должна быть больше или равно 4")
 	}
 
