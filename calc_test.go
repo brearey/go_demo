@@ -65,3 +65,31 @@ func TestCalculateDiv(t *testing.T) {
 		t.Errorf("ответ calculate %.6f не совпадает с ожидаемым %.6f", actual, except)
 	}
 }
+
+func TestCalculateUnknownOperator(t *testing.T) {
+	var a float32 = -2323123.2323
+	var b float32 = -23223.023232
+	var operator = "?"
+	var actual, err = calculate(a, operator, b)
+
+	if err == nil {
+		t.Error("calculate не выбросил ошибку")
+	}
+	if actual != 0 {
+		t.Error("calculate в качестве результата не вернул 0")
+	}
+}
+
+func TestCalculateDivByZero(t *testing.T) {
+	var a float32 = 2
+	var b float32 = 0
+	var operator = "/"
+	var actual, err = calculate(a, operator, b)
+
+	if err == nil {
+		t.Error("calculate не выбросил ошибку")
+	}
+	if actual != 0 {
+		t.Error("calculate в качестве результата не вернул 0")
+	}
+}
