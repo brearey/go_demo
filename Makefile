@@ -3,7 +3,7 @@ BIN := app
 all: clean build
 	./$(BIN)
 
-test: clean
+test: clean build
 	go test -v
 
 build:
