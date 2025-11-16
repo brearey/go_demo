@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"demo/app-1/pkg/password"
+	"fmt"
+)
 
 func main() {
-	var password, err = Generate(10)
+	var password, err = password.Generate(10)
 	if err != nil {
 		fmt.Println(err)
 	} else {
