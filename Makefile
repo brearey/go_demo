@@ -1,16 +1,17 @@
 BIN := app
+EVERYWHERE := ./...
 
 all: clean build
 	./$(BIN)
 
 test: clean build
-	go test -v ./...
+	go test -v $(EVERYWHERE)
 
 build:
 	@go build -o $(BIN) *.go
 
 format:
-	@go fmt
+	@go fmt $(EVERYWHERE)
 
 clean:
 	@rm -f $(BIN)

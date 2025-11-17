@@ -45,3 +45,22 @@ func TestCurl_InvalidURL(t *testing.T) {
 		t.Error("ожидалась ошибка для невалидного URL")
 	}
 }
+
+func TestAddProtocolPrefix(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{"example.com", "http://example.com"},
+		{"http://example.com", "http://example.com"},
+		{"https://example.com", "https://example.com"},
+	}
+
+	for _, tt := range tests {
+		url := tt.input
+		addProtocolPrefix(&url)
+		if url != tt.expected {
+			t.Errorf("для %s: ожидалось %s, получено %s", tt.input, tt.expected, url)
+		}
+	}
+}
