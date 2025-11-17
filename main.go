@@ -1,15 +1,10 @@
 package main
 
 import (
-	"demo/app-1/pkg/password"
-	"fmt"
+	"demo/app-1/pkg/inet"
 )
 
 func main() {
-	var password, err = password.Generate(10)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(password)
-	}
+	var url = "https://fakeapi.extendsclass.com/books/23"
+	inet.CurlPrint(url)
 }
