@@ -12,7 +12,7 @@ import (
 
 const (
 	HTTP_TIMEOUT_SECONDS = 30 * time.Second // 30 sec
-	MAX_BYTES = 10 * 1024 * 1024 // 10 MB
+	MAX_BYTES            = 10 * 1024 * 1024 // 10 MB
 )
 
 func Curl(url string) (string, error) {
@@ -65,13 +65,14 @@ func addProtocolPrefix(url *string) error {
 	return nil
 }
 
-func FetchDuration(url string, ch chan<- string) (int, error) {
+func FetchDuration(url string, ch chan<- int) {
 	startTime := time.Now()
 
 	err := addProtocolPrefix(&url)
 	if err != nil {
 		util.PrintError("FetchDuration", err)
-		return 0, err
+		ch <- 0
+		return
 	}
 
 	client := &http.Client{
@@ -80,21 +81,25 @@ func FetchDuration(url string, ch chan<- string) (int, error) {
 	resp, err := client.Get(url)
 	if err != nil {
 		util.PrintError("FetchDuration", err)
-		return 0, err
+		ch <- 0
+		return
 	}
 
 	defer resp.Body.Close()
 	_, err = io.ReadAll(io.LimitReader(resp.Body, MAX_BYTES))
 
 	if resp.StatusCode != http.StatusOK {
-		return 0, errors.New("query is not ok")
+		util.PrintError("FetchDuration", errors.New("query is not ok"))
+		ch <- 0
+		return
 	}
 
 	if err != nil {
-		return 0, err
+		ch <- 0
+		return
 	}
 
 	endTime := time.Since(startTime).Milliseconds()
 
-	return int(endTime), nil
+	ch <- int(endTime)
 }
