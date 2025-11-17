@@ -64,3 +64,37 @@ func addProtocolPrefix(url *string) error {
 	}
 	return nil
 }
+
+func FetchDuration(url string, ch chan<- string) (int, error) {
+	startTime := time.Now()
+
+	err := addProtocolPrefix(&url)
+	if err != nil {
+		util.PrintError("FetchDuration", err)
+		return 0, err
+	}
+
+	client := &http.Client{
+		Timeout: HTTP_TIMEOUT_SECONDS,
+	}
+	resp, err := client.Get(url)
+	if err != nil {
+		util.PrintError("FetchDuration", err)
+		return 0, err
+	}
+
+	defer resp.Body.Close()
+	_, err = io.ReadAll(io.LimitReader(resp.Body, MAX_BYTES))
+
+	if resp.StatusCode != http.StatusOK {
+		return 0, errors.New("query is not ok")
+	}
+
+	if err != nil {
+		return 0, err
+	}
+
+	endTime := time.Since(startTime).Milliseconds()
+
+	return int(endTime), nil
+}
