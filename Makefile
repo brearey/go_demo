@@ -5,7 +5,7 @@ all: clean build
 	./$(BIN)
 
 test: clean build
-	go test -v $(EVERYWHERE)
+	go test $(EVERYWHERE)
 
 build:
 	@go build -o $(BIN) *.go
