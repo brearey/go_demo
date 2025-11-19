@@ -12,24 +12,20 @@ func Calc() {
 	var result float32
 	var operator string
 	var err error
-	_, err = input.InputIntNumber(&a)
-	if err != nil {
+	if _, err = input.InputIntNumber(&a); err != nil {
 		util.PrintError("Calc", err)
 		return
 	}
-	_, err = input.InputOperator(&operator)
-	if err != nil {
+	if _, err = input.InputOperator(&operator); err != nil {
 		util.PrintError("Calc", err)
 		return
 	}
-	_, err = input.InputIntNumber(&b)
-	if err != nil {
+	if _, err = input.InputIntNumber(&b); err != nil {
 		util.PrintError("Calc", err)
 		return
 	}
 
-	result, err = calculate(float32(a), operator, float32(b))
-	if err != nil {
+	if result, err = calculate(float32(a), operator, float32(b)); err != nil {
 		util.PrintError("Calc", err)
 		return
 	}

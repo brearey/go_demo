@@ -68,8 +68,7 @@ func addProtocolPrefix(url *string) error {
 func FetchDuration(url string, ch chan<- int) {
 	startTime := time.Now()
 
-	err := addProtocolPrefix(&url)
-	if err != nil {
+	if err := addProtocolPrefix(&url); err != nil {
 		util.PrintError("FetchDuration", err)
 		ch <- 0
 		return
