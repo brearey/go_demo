@@ -1,18 +1,27 @@
 package main
 
 import (
-	"demo/app-1/pkg/inet"
-	"fmt"
+	"bufio"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
-	ch1 := make(chan int)
+	// https://coderun.yandex.ru/problem/calendar-formatting?compiler=go
+	reader := bufio.NewReaderSize(os.Stdin, 1<<4)
+  writer := bufio.NewWriterSize(os.Stdout, 1<<4)
+  defer writer.Flush()
 
-	go inet.FetchDuration("https://fakeapi.extendsclass.com/books/1", ch1)
-	go inet.FetchDuration("https://fakeapi.extendsclass.com/books", ch1)
-	go inet.FetchDuration("https://fakeapi.extendsclass.com/books/3", ch1)
+  line, _ := reader.ReadString('\n')
+  input := strings.Fields(line)
 
-	fmt.Printf("first <-ch1 %v\n", <-ch1)
-	fmt.Printf("second <-ch1 %v\n", <-ch1)
-	fmt.Printf("third <-ch1 %v\n", <-ch1)
+	nDays, _ := strconv.Atoi(input[0])
+	weekday := input[1]
+
+  // writer.WriteString(strconv.Itoa(n))
+  writer.WriteString(strconv.Itoa(nDays * 2))
+  writer.WriteByte(' ')
+  writer.WriteString(weekday)
+  writer.WriteByte('\n')
 }
