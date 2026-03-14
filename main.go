@@ -2,10 +2,23 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
 )
+
+func getWeekDayIndex(weekDay string) int {
+	var weekDays = []string{"Monday", "Tuesday", "Wednesday", "Thursday" ,"Friday" ,"Saturday" ,"Sunday"}
+	var ind int
+	for i := 0; i < len(weekDays); i++ {
+		if weekDays[i] == weekDay {
+			ind = i
+			break
+		}
+	}
+	return ind
+}
 
 func main() {
 	// https://coderun.yandex.ru/problem/calendar-formatting?compiler=go
@@ -27,6 +40,19 @@ func main() {
   writer.WriteString(weekday)
   writer.WriteByte('\n')
 
-	// save into the map
-	var weekDays
+	// weekdays
+	weekDayIndex := getWeekDayIndex(weekday)
+	
+	// main cycle
+	weeksCount := nDays / 7
+	dayNumber := 1
+	fmt.Printf("weeksCount = %d\n", weeksCount)
+	for weekIndex := 0; weekIndex < weeksCount; weekIndex++ {
+		// first week
+		for i := 0; i < weekDayIndex; i++ {
+			fmt.Print(".. ")
+		}
+		fmt.Print(dayNumber)
+		fmt.Println()
+	}
 }
